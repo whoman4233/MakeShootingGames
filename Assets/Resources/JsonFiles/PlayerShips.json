@@ -1,0 +1,58 @@
+[
+  {
+    "ID": "1",
+    "name": "P01",
+    "health": "20",
+    "damage": "10",
+    "shootSpeed": "1",
+    "moveSpeed": "5"
+  },
+  {
+    "ID": "2",
+    "name": "P02",
+    "health": "20",
+    "damage": "5",
+    "shootSpeed": "1",
+    "moveSpeed": "5"
+  },
+  {
+    "ID": "3",
+    "name": "P03",
+    "health": "20",
+    "damage": "10",
+    "shootSpeed": "1",
+    "moveSpeed": "5"
+  },
+  {
+    "ID": "4",
+    "name": "P04",
+    "health": "20",
+    "damage": "5",
+    "shootSpeed": "1",
+    "moveSpeed": "5"
+  },
+  {
+    "ID": "5",
+    "name": "P05",
+    "health": "20",
+    "damage": "5",
+    "shootSpeed": "1",
+    "moveSpeed": "5"
+  },
+  {
+    "ID": "6",
+    "name": "P06",
+    "health": "20",
+    "damage": "50",
+    "shootSpeed": "1",
+    "moveSpeed": "5"
+  },
+  {
+    "ID": "7",
+    "name": "P07",
+    "health": "20",
+    "damage": "5~20",
+    "shootSpeed": "1",
+    "moveSpeed": "5"
+  }
+]

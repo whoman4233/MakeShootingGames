@@ -13,11 +13,6 @@ namespace Chapter.Singleton
 
         void Start()
         {
-            // TODO:
-            // - Load player save
-            // - If no save, redirect player to registration scene
-            // - Call backend and get daily challenge and rewards 
-
             _sessionStartTime = DateTime.Now;
             Debug.Log(
                 "Game session start @: " + DateTime.Now);
@@ -38,7 +33,7 @@ namespace Chapter.Singleton
 
         void OnGUI()
         {
-            if (GUILayout.Button("Next Scene"))
+            if (GUILayout.Button("StartButton"))
             {
                 SceneManager.LoadScene(
                     SceneManager.GetActiveScene().buildIndex + 1);

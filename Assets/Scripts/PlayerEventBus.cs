@@ -10,9 +10,9 @@ namespace Chapter.Event
         OnMoveStart, OnMoveStop, OnAttack
     }
 
-    public class PlayerEventBus : IEventBus<PlayerEventType>
+    public class PlayerEventBus : IEventBus<PlayerEventType>, IEventBus<PlayerEventType, KeyCode>
     {
-
+        //플레이어 행동 중 옵저버 패턴으로 사용할 행동에 키입력을 받는게 있기 때문에 파라미터값으로 전달을 위한 이벤트 버스 2가지 상속
         private static readonly IDictionary<PlayerEventType, UnityEvent> Events = new Dictionary<PlayerEventType, UnityEvent>();
         private static readonly IDictionary<PlayerEventType, UnityEvent<KeyCode>> ParamEvents = new Dictionary<PlayerEventType, UnityEvent<KeyCode>>();
 
@@ -33,19 +33,19 @@ namespace Chapter.Event
                 Events.Add(playerEventType, thisEvent);
             }
         }
-        public void ParamSubscribe(PlayerEventType playerEventType, UnityAction<KeyCode> listener)
+        public void Subscribe(PlayerEventType playerEventType, UnityAction<KeyCode> listener)
         {
-            UnityEvent thisEvent;
+            UnityEvent<KeyCode> thisEvent;
 
-            if (ParamEvents.ContainsKey(playerEventType))
+            if (ParamEvents.TryGetValue(playerEventType, out thisEvent))
             {
-                ParamEvents[playerEventType].AddListener(listener);
+                thisEvent.AddListener(listener);
             }
             else
             {
-                thisEvent = new UnityEvent();
-                ParamEvents[playerEventType].AddListener(listener);
-                ParamEvents[playerEventType].Add(thisEvent);
+                thisEvent = new UnityEvent<KeyCode>();
+                thisEvent.AddListener(listener);
+                ParamEvents.Add(playerEventType, thisEvent);
             }
         }
 
@@ -57,6 +57,17 @@ namespace Chapter.Event
             {
                 thisEvent.RemoveListener(listener);
             }
+        }
+
+        public void Unsubscribe(PlayerEventType playerEventType, UnityAction<KeyCode> listener)
+        {
+            UnityEvent<KeyCode> thisEvent;
+
+            if(ParamEvents.TryGetValue(playerEventType, out thisEvent))
+            {
+                thisEvent.RemoveListener(listener);
+            }
+
         }
 
         public void Publish(PlayerEventType playerEventType)
@@ -71,11 +82,11 @@ namespace Chapter.Event
 
         public void Publish(PlayerEventType playerEventType, KeyCode keyCode)
         {
-            UnityEvent thisEvent;
+            UnityEvent<KeyCode> thisEvent;
 
-            if(ParamEvents.TryGetValue(playerEventType, out thisEvent))
+            if (ParamEvents.TryGetValue(playerEventType, out thisEvent))
             {
-                thisEvent.Invoke();
+                thisEvent.Invoke(keyCode);
             }
         }
     }

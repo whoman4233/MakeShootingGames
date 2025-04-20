@@ -1,0 +1,102 @@
+[
+  {
+    "PattenID": "A01",
+    "PName": "단발",
+    "PInfo": "1발씩 느린 속도로 발사"
+  },
+  {
+    "PattenID": "A02",
+    "PName": "2연사",
+    "PInfo": "2발을 빠르게 연속 발사"
+  },
+  {
+    "PattenID": "A03",
+    "PName": "3연사",
+    "PInfo": "3연속으로 빠르게 발사"
+  },
+  {
+    "PattenID": "A04",
+    "PName": "산탄",
+    "PInfo": "여러 방향으로 동시에 퍼지는 공격"
+  },
+  {
+    "PattenID": "A05",
+    "PName": "원형탄",
+    "PInfo": "360도 방향으로 탄을 회전 발사"
+  },
+  {
+    "PattenID": "A06",
+    "PName": "추적탄",
+    "PInfo": "플레이어를 따라가는 탄 발사"
+  },
+  {
+    "PattenID": "A07",
+    "PName": "돌진탄",
+    "PInfo": "빠르게 직선 방향으로 고속 발사"
+  },
+  {
+    "PattenID": "A08",
+    "PName": "폭발탄",
+    "PInfo": "명중 시 범위 데미지"
+  },
+  {
+    "PattenID": "A09",
+    "PName": "슬로우탄",
+    "PInfo": "피격 시 속도 감소 효과"
+  },
+  {
+    "PattenID": "A10",
+    "PName": "레이저",
+    "PInfo": "충전 후 강력한 직선 레이저"
+  },
+  {
+    "PattenID": "A11",
+    "PName": "지연폭발",
+    "PInfo": "발사 후 일정 시간 후 폭발"
+  },
+  {
+    "PattenID": "A12",
+    "PName": "확산탄",
+    "PInfo": "점점 퍼지는 탄을 발사"
+  },
+  {
+    "PattenID": "A13",
+    "PName": "곡사포",
+    "PInfo": "포물선처럼 날아가는 투사체"
+  },
+  {
+    "PattenID": "A14",
+    "PName": "방사탄",
+    "PInfo": "주변에 일정 범위로 확산되는 탄"
+  },
+  {
+    "PattenID": "A15",
+    "PName": "자폭",
+    "PInfo": "접근 시 자폭으로 공격"
+  },
+  {
+    "PattenID": "A16",
+    "PName": "스킬봉쇄탄",
+    "PInfo": "맞으면 스킬 사용 제한"
+  },
+  {
+    "PattenID": "A17",
+    "PName": "맵공격",
+    "PInfo": "전체 필드에 영향을 주는 패턴 (슬로우, 시야 제한 등)"
+  },
+  {
+    "PattenID": "A18",
+    "PName": "분열탄",
+    "PInfo": "맞거나 일정 거리 이동 후 여러 개로 분열"
+  },
+  {
+    "PattenID": "A19",
+    "PName": "반사탄",
+    "PInfo": "벽에 부딪히면 반사되어 튕김"
+  },
+  {
+    "PattenID": "A20",
+    "PName": "따라하기",
+    "PInfo": "플레이어가 사용하는 탄과 유사한 형태 발사"
+  }
+]
