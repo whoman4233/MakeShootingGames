@@ -1,52 +1,54 @@
-[
-  {
-    "PattenID": "BM01",
-    "PName": "정중앙 고정",
-    "PInfo": "보스가 화면 중앙에 정지"
-  },
-  {
-    "PattenID": "BM02",
-    "PName": "좌우 왕복",
-    "PInfo": "좌우로 이동하면서 공격"
-  },
-  {
-    "PattenID": "BM03",
-    "PName": "대각선 교차",
-    "PInfo": "화면을 대각선으로 이동"
-  },
-  {
-    "PattenID": "BM04",
-    "PName": "사방 순회",
-    "PInfo": "사각형 궤도로 움직임"
-  },
-  {
-    "PattenID": "BM05",
-    "PName": "추적형 이동",
-    "PInfo": "플레이어를 일정 범위에서 따라감"
-  },
-  {
-    "PattenID": "BM06",
-    "PName": "3점 정지 이동",
-    "PInfo": "3곳을 순서대로 점프 이동"
-  },
-  {
-    "PattenID": "BM07",
-    "PName": "은신 이동",
-    "PInfo": "깜빡이며 순간이동"
-  },
-  {
-    "PattenID": "BM08",
-    "PName": "스핀 이동",
-    "PInfo": "중심을 기준으로 회전"
-  },
-  {
-    "PattenID": "BM09",
-    "PName": "패턴 경로",
-    "PInfo": "미리 정의된 복잡한 궤적 이동"
-  },
-  {
-    "PattenID": "BM10",
-    "PName": "패턴 무작위",
-    "PInfo": "설정된 이동 중 무작위 선택 반복"
-  }
-]
+{
+  "items": [
+    {
+      "PattenID": "BM01",
+      "PName": "정중앙 고정",
+      "PInfo": "보스가 화면 중앙에 정지"
+    },
+    {
+      "PattenID": "BM02",
+      "PName": "좌우 왕복",
+      "PInfo": "좌우로 이동하면서 공격"
+    },
+    {
+      "PattenID": "BM03",
+      "PName": "대각선 교차",
+      "PInfo": "화면을 대각선으로 이동"
+    },
+    {
+      "PattenID": "BM04",
+      "PName": "사방 순회",
+      "PInfo": "사각형 궤도로 움직임"
+    },
+    {
+      "PattenID": "BM05",
+      "PName": "추적형 이동",
+      "PInfo": "플레이어를 일정 범위에서 따라감"
+    },
+    {
+      "PattenID": "BM06",
+      "PName": "3점 정지 이동",
+      "PInfo": "3곳을 순서대로 점프 이동"
+    },
+    {
+      "PattenID": "BM07",
+      "PName": "은신 이동",
+      "PInfo": "깜빡이며 순간이동"
+    },
+    {
+      "PattenID": "BM08",
+      "PName": "스핀 이동",
+      "PInfo": "중심을 기준으로 회전"
+    },
+    {
+      "PattenID": "BM09",
+      "PName": "패턴 경로",
+      "PInfo": "미리 정의된 복잡한 궤적 이동"
+    },
+    {
+      "PattenID": "BM10",
+      "PName": "패턴 무작위",
+      "PInfo": "설정된 이동 중 무작위 선택 반복"
+    }
+  ]
+}

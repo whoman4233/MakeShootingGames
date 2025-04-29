@@ -6,19 +6,19 @@ using Chapter.Base;
 
 namespace Chapter.CharacterBase
 {
-    public class PlayerMoveState : MonoBehaviour, IPlayerState
+    public class PlayerMoveState : IPlayerState
     {
         private PlayerBase player;
 
         public void Enter(PlayerBase _player)
         {
             this.player = _player;
+            Debug.Log("PlayerMoveState");
         }
 
         public void Update()
         {
             Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-            player.Move(input);
 
             if(input == Vector2.zero)
             {

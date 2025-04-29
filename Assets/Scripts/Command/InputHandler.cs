@@ -1,4 +1,5 @@
 using Chapter.Base;
+using System.Windows.Input;
 using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
@@ -8,7 +9,9 @@ namespace Chapter.Command
     {
         private Invoker _invoker;
         private PlayerBase _player;
-        private Command _attack;
+        private Command 
+            _attack, _move;
+        private Vector2 _direction;
 
         void Start()
         {
@@ -20,8 +23,17 @@ namespace Chapter.Command
 
         void Update()
         {
-            if (Input.GetKeyUp(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space))
                 _invoker.ExecuteCommand(_attack);
+
+            Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            if(input != null)
+            {
+                _move = new PlayerMoveCommand(_player, input);
+                _invoker.ExecuteCommand(_move);
+            }
+
+
         }
     }
 }

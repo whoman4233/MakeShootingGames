@@ -5,38 +5,46 @@ using Chapter.State;
 using Chapter.CharacterBase;
 using Chapter.Data;
 using Chapter.Event;
+using Chapter.ObjectPool;
+using Chapter.Strategy;
+using Chapter.Singleton;
 
 namespace Chapter.Base
 {
-    public class PlayerBase : MonoBehaviour
+    public class PlayerBase : MonoBehaviour, IPoolable
     {
         IPlayerState currentState;
 
         private IPlayerState
             _IdleState, _MoveState;
 
+        private IWeaponStrategy attackStrategy;
+
         private IEventBus<PlayerEventType> _eventBus;
 
-        bool _IsAttack;
+        float lastShootTime = 0f;
 
         [Header("기본 이동/공격 설정")]
         public float moveSpeed = 5f;
         public float ShootSpeed;
 
+        private SpriteRenderer sp;
 
-        public void Start()
+
+        public void Awake()
         {
-            _IdleState = gameObject.AddComponent<PlayerIdleState>();
-            _MoveState = gameObject.AddComponent<PlayerMoveState>();
+            _IdleState = new PlayerIdleState();
+            _MoveState = new PlayerMoveState();
+            sp = GetComponent<SpriteRenderer>();
+            _eventBus = new PlayerEventBus();
 
-            _eventBus.Subscribe(PlayerEventType.OnAttack, AttackSound);
+            GameManager.Instance._playerGameObject = this.gameObject;
 
             ChangeState(new PlayerIdleState());
         }
 
         private void OnDisable()
         {
-            _eventBus.Unsubscribe(PlayerEventType.OnAttack, AttackSound);
         }
 
         public void ChangeState(IPlayerState state)
@@ -46,7 +54,7 @@ namespace Chapter.Base
             currentState.Enter(this);
         }
 
-        public void Update()
+        private void Update()
         {
             currentState?.Update();
         }
@@ -58,8 +66,12 @@ namespace Chapter.Base
         
         public void Attack()
         {
-            _IsAttack = !_IsAttack;
-            _eventBus.Publish(PlayerEventType.OnAttack);
+            if(Time.time - lastShootTime > ShootSpeed)
+            {
+                Debug.Log("Attack!");
+                attackStrategy?.Shoot(this.gameObject.transform);
+                lastShootTime = Time.time;
+            }
         }
 
         public void AttackSound()
@@ -69,8 +81,56 @@ namespace Chapter.Base
 
         public void SetSelectPlayerPlainStatus(string _playerPlainID)
         {
+            switch(_playerPlainID)
+            {
+                case "P01":
+                    attackStrategy = new AssaultRifle();
+                    sp.sprite = GameManager.Instance._spriteData.playerSprite[0];
+                    break;
+                case "P02":
+                    attackStrategy = new AutoAim();
+                    sp.sprite = GameManager.Instance._spriteData.playerSprite[1];
+                    break;
+                case "P03":
+                    attackStrategy = new MissileLauncher();
+                    sp.sprite = GameManager.Instance._spriteData.playerSprite[2];
+                    break;
+                case "P04":
+                    attackStrategy = new LaserBeam();
+                    sp.sprite = GameManager.Instance._spriteData.playerSprite[3];
+                    break;
+                case "P05":
+                    attackStrategy = new DroneCarrier();
+                    sp.sprite = GameManager.Instance._spriteData.playerSprite[4];
+                    break;
+                case "P06":
+                    attackStrategy = new EnergyBarrier();
+                    sp.sprite = GameManager.Instance._spriteData.playerSprite[5];
+                    break;
+                case "P07":
+                    attackStrategy = new ChargeShot();
+                    sp.sprite = GameManager.Instance._spriteData.playerSprite[6];
+                    break;
+            }
+
+
+
             moveSpeed = DataManager.Instance.playerShipsDataMap[_playerPlainID].moveSpeed;
             ShootSpeed = DataManager.Instance.playerShipsDataMap[_playerPlainID].shootSpeed;
         }
-    }
+
+        public void OnGet()
+        {
+            // 풀에서 꺼낼 때 초기화 작업 (ex. 체력 회복, 상태 리셋 등)
+            Debug.Log("PlayerBase OnGet 호출");
+
+        }
+
+        public void OnRelease()
+        {
+            // 풀로 반환될 때 초기화 작업 (ex. 이펙트 끄기, 총알 리셋 등)
+            Debug.Log("PlayerBase OnRelease 호출");
+
+        }
+    } 
 }

@@ -331,9 +331,12 @@ namespace Chapter.Data
                     Directory.CreateDirectory(directoryPath);
                 }
 
+                JObject root = new JObject();
+                root["items"] = jArray;
+
                 string jsonFilePath = Path.Combine(directoryPath, $"{jsonFileName}.json");
 
-                File.WriteAllText(jsonFilePath, jArray.ToString());
+                File.WriteAllText(jsonFilePath, root.ToString());
                 Debug.Log($"Saved JSON to: {jsonFilePath}");
             }
 

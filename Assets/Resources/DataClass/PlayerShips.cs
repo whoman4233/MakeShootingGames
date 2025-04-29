@@ -9,7 +9,7 @@ namespace Chapter.Data
 		public string name;
 		public int health;
 		public int damage;
-		public int shootSpeed;
+		public float shootSpeed;
 		public int moveSpeed;
 
 	}

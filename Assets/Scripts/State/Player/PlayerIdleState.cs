@@ -6,13 +6,14 @@ using Chapter.Base;
 
 namespace Chapter.CharacterBase
 {
-    public class PlayerIdleState : MonoBehaviour, IPlayerState
+    public class PlayerIdleState : IPlayerState
     {
         private PlayerBase Player;
 
         public void Enter(PlayerBase _player)
         {
             this.Player = _player;
+            Debug.Log("PlayerIdleState");
         }
         public void Update()
         {

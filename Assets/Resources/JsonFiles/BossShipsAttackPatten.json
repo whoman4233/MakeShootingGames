@@ -1,77 +1,79 @@
-[
-  {
-    "PattenID": "BA01",
-    "PName": "원형탄 연사",
-    "PInfo": "360도 원형으로 빠르게 연사"
-  },
-  {
-    "PattenID": "BA02",
-    "PName": "추적탄 연사",
-    "PInfo": "추적 미사일 발사"
-  },
-  {
-    "PattenID": "BA03",
-    "PName": "산탄 + 회전",
-    "PInfo": "산탄을 회전하며 쏨"
-  },
-  {
-    "PattenID": "BA04",
-    "PName": "원형 레이저",
-    "PInfo": "중심 기준으로 회전하며 레이저 발사"
-  },
-  {
-    "PattenID": "BA05",
-    "PName": "지연 폭발탄",
-    "PInfo": "유도탄이 충돌 후 지연 폭발"
-  },
-  {
-    "PattenID": "BA06",
-    "PName": "3방향 레이저",
-    "PInfo": "3방향 동시 광선 발사"
-  },
-  {
-    "PattenID": "BA07",
-    "PName": "크로스 패턴",
-    "PInfo": "십자형 패턴의 탄막"
-  },
-  {
-    "PattenID": "BA08",
-    "PName": "원-사선 혼합",
-    "PInfo": "원형 + 사선 교차 공격"
-  },
-  {
-    "PattenID": "BA09",
-    "PName": "사슬탄",
-    "PInfo": "플레이어 주변을 덮는 탄 사슬"
-  },
-  {
-    "PattenID": "BA10",
-    "PName": "대구경 탄",
-    "PInfo": "느리지만 큰 데미지 탄 발사"
-  },
-  {
-    "PattenID": "BA11",
-    "PName": "반사탄",
-    "PInfo": "화면 끝에서 반사되며 튕기는 탄"
-  },
-  {
-    "PattenID": "BA12",
-    "PName": "블레이드",
-    "PInfo": "날붙이형 투사체 날아옴"
-  },
-  {
-    "PattenID": "BA13",
-    "PName": "연속탄장",
-    "PInfo": "점점 빨라지는 연사"
-  },
-  {
-    "PattenID": "BA14",
-    "PName": "트랩탄",
-    "PInfo": "지정 영역에 지뢰형 탄 설치"
-  },
-  {
-    "PattenID": "BA15",
-    "PName": "초광역탄",
-    "PInfo": "맵 전체 범위 공격 (회피 타이밍 요구)"
-  }
-]
+{
+  "items": [
+    {
+      "PattenID": "BA01",
+      "PName": "원형탄 연사",
+      "PInfo": "360도 원형으로 빠르게 연사"
+    },
+    {
+      "PattenID": "BA02",
+      "PName": "추적탄 연사",
+      "PInfo": "추적 미사일 발사"
+    },
+    {
+      "PattenID": "BA03",
+      "PName": "산탄 + 회전",
+      "PInfo": "산탄을 회전하며 쏨"
+    },
+    {
+      "PattenID": "BA04",
+      "PName": "원형 레이저",
+      "PInfo": "중심 기준으로 회전하며 레이저 발사"
+    },
+    {
+      "PattenID": "BA05",
+      "PName": "지연 폭발탄",
+      "PInfo": "유도탄이 충돌 후 지연 폭발"
+    },
+    {
+      "PattenID": "BA06",
+      "PName": "3방향 레이저",
+      "PInfo": "3방향 동시 광선 발사"
+    },
+    {
+      "PattenID": "BA07",
+      "PName": "크로스 패턴",
+      "PInfo": "십자형 패턴의 탄막"
+    },
+    {
+      "PattenID": "BA08",
+      "PName": "원-사선 혼합",
+      "PInfo": "원형 + 사선 교차 공격"
+    },
+    {
+      "PattenID": "BA09",
+      "PName": "사슬탄",
+      "PInfo": "플레이어 주변을 덮는 탄 사슬"
+    },
+    {
+      "PattenID": "BA10",
+      "PName": "대구경 탄",
+      "PInfo": "느리지만 큰 데미지 탄 발사"
+    },
+    {
+      "PattenID": "BA11",
+      "PName": "반사탄",
+      "PInfo": "화면 끝에서 반사되며 튕기는 탄"
+    },
+    {
+      "PattenID": "BA12",
+      "PName": "블레이드",
+      "PInfo": "날붙이형 투사체 날아옴"
+    },
+    {
+      "PattenID": "BA13",
+      "PName": "연속탄장",
+      "PInfo": "점점 빨라지는 연사"
+    },
+    {
+      "PattenID": "BA14",
+      "PName": "트랩탄",
+      "PInfo": "지정 영역에 지뢰형 탄 설치"
+    },
+    {
+      "PattenID": "BA15",
+      "PName": "초광역탄",
+      "PInfo": "맵 전체 범위 공격 (회피 타이밍 요구)"
+    }
+  ]
+}
