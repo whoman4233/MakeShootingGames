@@ -16,6 +16,7 @@
 - 오브젝트 풀 패턴
 
 ## 시연 영상
+https://github.com/whoman4233/MakeShootingGames/issues/1#issue-3030861390
 
 ## 스크린샷
 - 로비 화면
