@@ -1,4 +1,3 @@
-using Chapter.Event;
 using Chapter.ObjectPool;
 using Chapter.Strategy;
 using System.Collections;
@@ -7,10 +6,10 @@ using UnityEngine;
 
 namespace Chapter.Base
 {
-    public class EnemyBase : MonoBehaviour, IPoolable
+    public class BossBase : MonoBehaviour, IPoolable
     {
-        private IEnemyAttackStrategy attackStrategy;
-        private IEnemyMoveStrategy moveStrategy;
+        private IBossAttackStrategy attackStrategy;
+        private IBossMoveStrategy moveStrategy;
 
         SpriteRenderer sp;
 
@@ -23,31 +22,29 @@ namespace Chapter.Base
             attackSpeed = 1;
         }
 
-        public void SetMoveStrategy(IEnemyMoveStrategy Strategy)
+        public void SetMoveStrategy(IBossMoveStrategy Strategy)
         {
             moveStrategy = Strategy;
         }
 
-        public void SetAttackStrategy(IEnemyAttackStrategy Strategy)
+        public void SetAttackStrategy(IBossAttackStrategy Strategy)
         {
             attackStrategy = Strategy;
         }
 
-        public void SetSprite(Sprite _enemySprite)
+        public void SetSprite(Sprite _bossSprite)
         {
             sp = GetComponent<SpriteRenderer>();
-            sp.sprite = _enemySprite;
+            sp.sprite = _bossSprite;
         }
 
         private void Update()
         {
-            moveStrategy?.Move(transform);
+            moveStrategy?.ExecuteMovement(transform);
             if (attackStrategy != null && Time.time > attackSpeed)
             {
                 attackStrategy?.Attack(transform);
                 attackSpeed += Time.time;
-                EnemyEventBus enemyEvent = new EnemyEventBus();
-                enemyEvent.Publish(EnemyEventType.Dead);
             }
         }
 
@@ -65,16 +62,13 @@ namespace Chapter.Base
 
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        private void OnTriggerStay2D(Collider2D collision)
         {
             PoolSystemManager.Instance.ReleaseBullet(collision.gameObject.GetComponent<BulletBase>());
-            if(collision.tag == "Bullet")
+            HP -= 1;
+            if (HP <= 0)
             {
-                HP -= 1;
-            }
-            if(HP <= 0)
-            {
-                PoolSystemManager.Instance.ReleaseEnemy(this);
+                PoolSystemManager.Instance.ReleaseBoss(this);
             }
         }
     }

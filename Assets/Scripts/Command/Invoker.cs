@@ -20,8 +20,6 @@ namespace Chapter.Command
             if (_isRecording)
                 _recordedCommands.Add(_recordingTime, command);
 
-            Debug.Log("Recorded Time: " + _recordingTime);
-            Debug.Log("Recorded Command: " + command);
         }
 
         public void Record()

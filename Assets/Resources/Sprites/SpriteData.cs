@@ -10,5 +10,6 @@ namespace Chapter.Data
         public Sprite[] playerSprite;
         public Sprite[] enemySprite;
         public Sprite[] bulletSprite;
+        public Sprite[] bossSprite;
     }
 }

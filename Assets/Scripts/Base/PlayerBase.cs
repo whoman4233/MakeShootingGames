@@ -30,6 +30,7 @@ namespace Chapter.Base
 
         private SpriteRenderer sp;
 
+        public int HP;
 
         public void Awake()
         {
@@ -86,30 +87,37 @@ namespace Chapter.Base
                 case "P01":
                     attackStrategy = new AssaultRifle();
                     sp.sprite = GameManager.Instance._spriteData.playerSprite[0];
+                    HP = 3;
                     break;
                 case "P02":
                     attackStrategy = new AutoAim();
                     sp.sprite = GameManager.Instance._spriteData.playerSprite[1];
+                    HP = 3;
                     break;
                 case "P03":
                     attackStrategy = new MissileLauncher();
                     sp.sprite = GameManager.Instance._spriteData.playerSprite[2];
+                    HP = 3;
                     break;
                 case "P04":
                     attackStrategy = new LaserBeam();
                     sp.sprite = GameManager.Instance._spriteData.playerSprite[3];
+                    HP = 3;
                     break;
                 case "P05":
                     attackStrategy = new DroneCarrier();
                     sp.sprite = GameManager.Instance._spriteData.playerSprite[4];
+                    HP = 3;
                     break;
                 case "P06":
                     attackStrategy = new EnergyBarrier();
                     sp.sprite = GameManager.Instance._spriteData.playerSprite[5];
+                    HP = 3;
                     break;
                 case "P07":
                     attackStrategy = new ChargeShot();
                     sp.sprite = GameManager.Instance._spriteData.playerSprite[6];
+                    HP = 3;
                     break;
             }
 
@@ -117,6 +125,17 @@ namespace Chapter.Base
 
             moveSpeed = DataManager.Instance.playerShipsDataMap[_playerPlainID].moveSpeed;
             ShootSpeed = DataManager.Instance.playerShipsDataMap[_playerPlainID].shootSpeed;
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.tag == "EnemyBullet")
+            {
+                HP -= 1;
+                PlayerEventBus playerEventBus = new PlayerEventBus();
+                playerEventBus.Publish(PlayerEventType.OnHit);
+                PoolSystemManager.Instance.ReleaseEnemyBullet(collision.gameObject.GetComponent<EnemyBulletBase>());
+            }
         }
 
         public void OnGet()

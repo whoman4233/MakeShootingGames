@@ -69,11 +69,9 @@ public class BulletBase : MonoBehaviour, IPoolable
 
     public void OnGet()
     {
-        gameObject.SetActive(true);
     }
 
     public void OnRelease()
     {
-        gameObject.SetActive(false);
     }
 }

@@ -1,10 +1,12 @@
 using Chapter.CharacterBase;
 using Chapter.Data;
 using Chapter.Event;
+using Chapter.Manager;
 using Chapter.State;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,7 +25,14 @@ namespace Chapter.Singleton
 
         private IGameState
             _gameLobbyState, _gamePlayState;
-            
+
+        EnemyEventBus enemyEventBus;
+        public PlayerEventBus playerEventBus;
+        UIManager uiManager;
+
+        int EnemyDeadCounter;
+        int PlayerHP;
+
 
         public void Start()
         {
@@ -35,6 +44,11 @@ namespace Chapter.Singleton
                 "Game session start @: " + DateTime.Now);
 
             ChangeState(new GameLobbyState());
+
+            enemyEventBus = new EnemyEventBus();
+            enemyEventBus.Subscribe(EnemyEventType.Dead, OnEnemyDead);
+            playerEventBus = new PlayerEventBus();
+            playerEventBus.Subscribe(PlayerEventType.OnHit, OnPlayerHit);
 
         }
 
@@ -87,16 +101,66 @@ namespace Chapter.Singleton
 
         }
 
+        public void ReGameButtonClick()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.LoadScene("LobbyScene 1");
+        }
+
+
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             if (scene.name == "InGameScene")
             {
                 ChangeState(_gamePlayState);
-                SceneManager.sceneLoaded -= OnSceneLoaded; // 이벤트 제거 (중복 방지)
+                SceneManager.sceneLoaded -= OnSceneLoaded;
+            }
+
+            if(scene.name == "LobbyScene 1")
+            {
+                ChangeState(_gameLobbyState);
+                SceneManager.sceneLoaded -= OnSceneLoaded;
             }
         }
 
-        
+        public void OnEnemyDead()
+        {
+            EnemyDeadCounter++;
+            Debug.Log(EnemyDeadCounter);
+            if(EnemyDeadCounter >= 30)
+            {
+                EnemyDeadCounter = 0;
+                SpawnManager spawnManager = FindObjectOfType<SpawnManager>();
+                spawnManager.SpawnBoss();
+            }
+        }
+
+        public void OnPlayerHit()
+        {
+            if(currentState is GamePlayState playState)
+            {
+                PlayerHP -= 1;
+                uiManager.UpdateHp(PlayerHP);
+                if(PlayerHP <= 0)
+                {
+                    uiManager.UpdateHp(PlayerHP);
+                    playerEventBus.Publish(PlayerEventType.OnDead);
+                }
+            }
+        }
+
+        public void Initialize()
+        {
+            if(currentState is GamePlayState gamePlayState)
+            {
+                EnemyDeadCounter = 0;
+                PlayerHP = 3;
+                uiManager = FindObjectOfType<UIManager>();
+                uiManager.Initalize();
+                uiManager.SetMaxHp(PlayerHP);
+                
+            }
+        }
 
 
         private void Update()

@@ -57,20 +57,7 @@ namespace Chapter.Factory
                 () => new EnemySpreadShotAttackStrategy(),
                 () => new EnemyCircularShotAttackStrategy(),
                 () => new EnemyHomingShotAttackStrategy(),
-                () => new EnemyRushShotAttackStrategy(),
-                () => new EnemyExplosiveShotAttackStrategy(),
-                () => new EnemySlowShotAttackStrategy(),
-                () => new EnemyLaserAttackStrategy(),
-                () => new EnemyDelayedExplosionAttackStrategy(),
-                () => new EnemyExpandingShotAttackStrategy(),
-                () => new EnemyLobbedShotAttackStrategy(),
-                () => new EnemyRadialShotAttackStrategy(),
-                () => new EnemySuicideAttackAttackStrategy(),
-                () => new EnemySkillBlockShotAttackStrategy(),
-                () => new EnemyMapAttackAttackStrategy(),
-                () => new EnemySplitShotAttackStrategy(),
-                () => new EnemyReflectShotAttackStrategy(),
-                () => new EnemyMimicShotAttackStrategy()
+                () => new EnemyRushShotAttackStrategy()
             };
         }
 

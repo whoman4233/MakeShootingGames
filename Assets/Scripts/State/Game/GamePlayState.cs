@@ -15,6 +15,8 @@ public class GamePlayState : IGameState
     {
         Debug.Log("GameStart!");
 
+        GameManager.Instance.Initialize();
+
         player = PoolSystemManager.Instance.SpawnPlayer(Vector3.zero);
 
         player.SetSelectPlayerPlainStatus("P0" + (gameManager._playerIndex + 1).ToString());
@@ -22,7 +24,7 @@ public class GamePlayState : IGameState
         if (player != null)
         {
             Debug.Log($"[Success] Player 오브젝트를 Pool에서 받아옴: {player.name}");
-            player.gameObject.SetActive(true); // 혹시라도 false 상태면 강제 활성화
+            player.gameObject.SetActive(true);
         }
         else
         {

@@ -60,6 +60,28 @@ namespace Chapter.Manager
             }
         }
 
+        public void SpawnBoss()
+        {
+            if (spawnPoints.Count == 0)
+            {
+                Debug.LogWarning("Spawn Points가 없습니다");
+                return;
+            }
+
+            // 랜덤 스폰 위치 선택
+            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
+
+            var boss = BossFactory.CreateBoss("Boss", spawnPoint);
+            if (boss != null)
+            {
+                boss.transform.position = spawnPoint.position;
+            }
+            else
+            {
+                Debug.LogError("적 생성 문제 발생");
+            }
+        }
+
     }
 
 }

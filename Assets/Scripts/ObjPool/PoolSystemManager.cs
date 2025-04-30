@@ -11,6 +11,8 @@ namespace Chapter.ObjectPool
         public PlayerPoolManager playerPoolManager;
         public EnemyPoolManager enemyPoolManager;
         public BulletPoolManager bulletPoolManager;
+        public EnemyBulletPoolManager enemyBulletPoolManager;
+        public BossPoolManager bossPoolManager;
         // 여기에 EnemyPoolManager, BulletPoolManager 등 추가
 
 
@@ -56,6 +58,31 @@ namespace Chapter.ObjectPool
         {
             bulletPoolManager.ReleaseBullet(bullet);
         }
+
+        public EnemyBulletBase SpawnEnemyBullet(Vector3 position)
+        {
+            var bullet = enemyBulletPoolManager.GetEnemyBullet();
+            bullet.transform.position = position;
+            return bullet;
+        }
+
+        public void ReleaseEnemyBullet(EnemyBulletBase bullet)
+        {
+            enemyBulletPoolManager.ReleaseEnemyBullet(bullet);
+        }
+
+        public BossBase SpawnBoss(Vector3 position)
+        {
+            var boss = bossPoolManager.GetBoss();
+            boss.transform.position = position;
+            return boss;
+        }
+
+        public void ReleaseBoss(BossBase boss)
+        {
+            bossPoolManager.ReleaseBoss(boss);
+        }
+
 
     }
 }

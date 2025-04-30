@@ -819,6 +819,7 @@ GameObject:
   - component: {fileID: 727449070}
   - component: {fileID: 727449069}
   - component: {fileID: 727449068}
+  - component: {fileID: 727449073}
   m_Layer: 0
   m_Name: PoolSystemManager
   m_TagString: Untagged
@@ -880,6 +881,8 @@ MonoBehaviour:
   playerPoolManager: {fileID: 727449070}
   enemyPoolManager: {fileID: 727449069}
   bulletPoolManager: {fileID: 727449068}
+  enemyBulletPoolManager: {fileID: 727449073}
+  bossPoolManager: {fileID: 0}
 --- !u!4 &727449072
 Transform:
   m_ObjectHideFlags: 0
@@ -895,6 +898,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &727449073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727449067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9a5869bd23133747bc91d041fd4b673, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyBulletPrefab: {fileID: 4569492076202532431, guid: 7234dea93b1890b4684774e488cbfe3d, type: 3}
 --- !u!1 &731594070
 GameObject:
   m_ObjectHideFlags: 0

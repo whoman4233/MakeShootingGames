@@ -7,7 +7,7 @@ namespace Chapter.Event
 {
     public enum PlayerEventType
     {
-        OnMoveStart, OnMoveStop, OnAttack
+        OnMoveStart, OnMoveStop, OnAttack, OnHit, OnDead
     }
 
     public class PlayerEventBus : IEventBus<PlayerEventType>, IEventBus<PlayerEventType, KeyCode>

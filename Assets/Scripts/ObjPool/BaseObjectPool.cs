@@ -29,14 +29,21 @@ namespace Chapter.ObjectPool
 
         private void OnTakeFromPool(T obj)
         {
-            obj.gameObject.SetActive(true);
             obj.OnGet();
+            obj.gameObject.SetActive(true);
         }
 
         private void OnReturnedToPool(T obj)
         {
-            obj.OnRelease();
-            obj.gameObject.SetActive(false);
+            if(obj != null)
+            {
+                obj.OnRelease();
+                obj.gameObject.SetActive(false);
+            }
+            else
+            {
+                Debug.LogWarning("풀에 반환된 오브젝트가 null입니다!");
+            }
         }
 
         private void OnDestroyPoolObject(T obj)

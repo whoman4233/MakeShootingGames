@@ -17,6 +17,7 @@ namespace Chapter.Data
 
         private void Awake()
         { 
+            base.Awake();
             LoadAllData();
         }
 
