@@ -14,6 +14,7 @@ namespace Chapter.Data
         public Dictionary<string, EnemyShipsMovePatten> EnemyShipsMovePattenDataMap;
         public Dictionary<string, BossShipsAttackPatten> BossShipsAttackPattenDataMap;
         public Dictionary<string, BossShipsMovePatten> BossShipsMovePattenDataMap;
+        public Dictionary<string, EnemyStatus> EnemyStatusDataMap;
 
         private void Awake()
         { 
@@ -28,6 +29,7 @@ namespace Chapter.Data
             EnemyShipsMovePattenDataMap = JsonLoader.LoadAsDictionary<EnemyShipsMovePatten>("EnemyShipsMovePatten", p => p.PattenID);
             BossShipsAttackPattenDataMap = JsonLoader.LoadAsDictionary<BossShipsAttackPatten>("BossShipsAttackPatten", p => p.PattenID);
             BossShipsMovePattenDataMap = JsonLoader.LoadAsDictionary<BossShipsMovePatten>("BossShipsMovePatten", p => p.PattenID);
+            EnemyStatusDataMap = JsonLoader.LoadAsDictionary<EnemyStatus>("EnemyStatus", p => p.EnemyID);
         }
 
         public PlayerShips GetPlayer(string id)
@@ -53,6 +55,11 @@ namespace Chapter.Data
         public BossShipsMovePatten GetBossMovePatten(string id)
         {
             return BossShipsMovePattenDataMap.TryGetValue(id, out var data) ? data : null;
+        }
+
+        public EnemyStatus GetEnemyStatus(string id)
+        {
+            return EnemyStatusDataMap.TryGetValue(id, out var data) ? data : null;
         }
 
 

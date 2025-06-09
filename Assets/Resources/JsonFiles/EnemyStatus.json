@@ -1,0 +1,204 @@
+{
+  "items": [
+    {
+      "EnemyID": "E01",
+      "MovePattern1": "M14",
+      "AttackPattern": "A07"
+    },
+    {
+      "EnemyID": "E02",
+      "MovePattern1": "M05",
+      "AttackPattern": "A05"
+    },
+    {
+      "EnemyID": "E03",
+      "MovePattern1": "M15",
+      "AttackPattern": "A07"
+    },
+    {
+      "EnemyID": "E04",
+      "MovePattern1": "M10",
+      "AttackPattern": "A07"
+    },
+    {
+      "EnemyID": "E05",
+      "MovePattern1": "M02",
+      "AttackPattern": "A02"
+    },
+    {
+      "EnemyID": "E06",
+      "MovePattern1": "M13",
+      "AttackPattern": "A04"
+    },
+    {
+      "EnemyID": "E07",
+      "MovePattern1": "M04",
+      "AttackPattern": "A07"
+    },
+    {
+      "EnemyID": "E08",
+      "MovePattern1": "M03",
+      "AttackPattern": "A06"
+    },
+    {
+      "EnemyID": "E09",
+      "MovePattern1": "M02",
+      "AttackPattern": "A01"
+    },
+    {
+      "EnemyID": "E10",
+      "MovePattern1": "M14",
+      "AttackPattern": "A06"
+    },
+    {
+      "EnemyID": "E11",
+      "MovePattern1": "M11",
+      "AttackPattern": "A07"
+    },
+    {
+      "EnemyID": "E12",
+      "MovePattern1": "M01",
+      "AttackPattern": "A01"
+    },
+    {
+      "EnemyID": "E13",
+      "MovePattern1": "M14",
+      "AttackPattern": "A04"
+    },
+    {
+      "EnemyID": "E14",
+      "MovePattern1": "M08",
+      "AttackPattern": "A07"
+    },
+    {
+      "EnemyID": "E15",
+      "MovePattern1": "M10",
+      "AttackPattern": "A02"
+    },
+    {
+      "EnemyID": "E16",
+      "MovePattern1": "M07",
+      "AttackPattern": "A05"
+    },
+    {
+      "EnemyID": "E17",
+      "MovePattern1": "M07",
+      "AttackPattern": "A04"
+    },
+    {
+      "EnemyID": "E18",
+      "MovePattern1": "M15",
+      "AttackPattern": "A07"
+    },
+    {
+      "EnemyID": "E19",
+      "MovePattern1": "M04",
+      "AttackPattern": "A02"
+    },
+    {
+      "EnemyID": "E20",
+      "MovePattern1": "M15",
+      "AttackPattern": "A03"
+    },
+    {
+      "EnemyID": "E21",
+      "MovePattern1": "M09",
+      "AttackPattern": "A05"
+    },
+    {
+      "EnemyID": "E22",
+      "MovePattern1": "M13",
+      "AttackPattern": "A03"
+    },
+    {
+      "EnemyID": "E23",
+      "MovePattern1": "M04",
+      "AttackPattern": "A03"
+    },
+    {
+      "EnemyID": "E24",
+      "MovePattern1": "M02",
+      "AttackPattern": "A05"
+    },
+    {
+      "EnemyID": "E25",
+      "MovePattern1": "M11",
+      "AttackPattern": "A03"
+    },
+    {
+      "EnemyID": "E26",
+      "MovePattern1": "M02",
+      "AttackPattern": "A03"
+    },
+    {
+      "EnemyID": "E27",
+      "MovePattern1": "M03",
+      "AttackPattern": "A07"
+    },
+    {
+      "EnemyID": "E28",
+      "MovePattern1": "M01",
+      "AttackPattern": "A07"
+    },
+    {
+      "EnemyID": "E29",
+      "MovePattern1": "M14",
+      "AttackPattern": "A07"
+    },
+    {
+      "EnemyID": "E30",
+      "MovePattern1": "M01",
+      "AttackPattern": "A06"
+    },
+    {
+      "EnemyID": "E31",
+      "MovePattern1": "M09",
+      "AttackPattern": "A04"
+    },
+    {
+      "EnemyID": "E32",
+      "MovePattern1": "M09",
+      "AttackPattern": "A02"
+    },
+    {
+      "EnemyID": "E33",
+      "MovePattern1": "M06",
+      "AttackPattern": "A01"
+    },
+    {
+      "EnemyID": "E34",
+      "MovePattern1": "M02",
+      "AttackPattern": "A02"
+    },
+    {
+      "EnemyID": "E35",
+      "MovePattern1": "M11",
+      "AttackPattern": "A06"
+    },
+    {
+      "EnemyID": "E36",
+      "MovePattern1": "M04",
+      "AttackPattern": "A01"
+    },
+    {
+      "EnemyID": "E37",
+      "MovePattern1": "M09",
+      "AttackPattern": "A05"
+    },
+    {
+      "EnemyID": "E38",
+      "MovePattern1": "M03",
+      "AttackPattern": "A05"
+    },
+    {
+      "EnemyID": "E39",
+      "MovePattern1": "M01",
+      "AttackPattern": "A06"
+    },
+    {
+      "EnemyID": "E40",
+      "MovePattern1": "M11",
+      "AttackPattern": "A07"
+    }
+  ]
+}

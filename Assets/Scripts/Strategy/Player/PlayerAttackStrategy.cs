@@ -1,4 +1,5 @@
 using Chapter.Base;
+using Chapter.Factory;
 using Chapter.ObjectPool;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,16 +17,17 @@ namespace Chapter.Strategy
         /// <summary>
         /// BulletBase를 생성하고 초기화하는 메서드
         /// </summary>
-        protected void FireBullet(Transform firePoint, Vector2 direction, BulletType bulletType)
+        protected void FireBullet(Transform firePoint, Vector2 direction, IBulletStrategy bulletStrategy)
         {
             var bullet = PoolSystemManager.Instance.SpawnBullet<BulletBase>(firePoint.position);
             if (bullet != null)
             {
-                bullet.Initialize(direction, bulletType, bulletSpeed);
+                bullet.SetBehavior(bulletStrategy);
+                bulletStrategy.Initailize(bullet);
             }
             else
             {
-                Debug.LogError($"{bulletType} 탄환 생성 실패!");
+                Debug.LogError($"{bulletStrategy} 탄환 생성 실패!");
             }
         }
     }
@@ -42,7 +44,7 @@ namespace Chapter.Strategy
 
         public override void Shoot(Transform firePoint)
         {
-            FireBullet(firePoint, Vector2.up, BulletType.Normal);
+            FireBullet(firePoint, Vector2.up, BulletStrategyFactory.Create(BulletType.Normal));
         }
     }
 
@@ -56,8 +58,7 @@ namespace Chapter.Strategy
 
         public override void Shoot(Transform firePoint)
         {
-            Vector2 autoDirection = Vector2.up; // 추후 타겟팅 방향으로 변경 예정
-            FireBullet(firePoint, autoDirection, BulletType.Normal);
+            FireBullet(firePoint, Vector2.up, BulletStrategyFactory.Create(BulletType.AutoAim));
         }
     }
 
@@ -71,7 +72,7 @@ namespace Chapter.Strategy
 
         public override void Shoot(Transform firePoint)
         {
-            FireBullet(firePoint, Vector2.up, BulletType.Missile);
+            FireBullet(firePoint, Vector2.up, BulletStrategyFactory.Create(BulletType.Missile));
         }
     }
 
@@ -85,7 +86,7 @@ namespace Chapter.Strategy
 
         public override void Shoot(Transform firePoint)
         {
-            FireBullet(firePoint, Vector2.up, BulletType.Laser);
+            FireBullet(firePoint, Vector2.up, BulletStrategyFactory.Create(BulletType.Laser));
         }
     }
 
@@ -99,7 +100,7 @@ namespace Chapter.Strategy
 
         public override void Shoot(Transform firePoint)
         {
-            FireBullet(firePoint, Vector2.zero, BulletType.Drone);
+            FireBullet(firePoint, Vector2.up, BulletStrategyFactory.Create(BulletType.Drone));
         }
     }
 
@@ -113,7 +114,7 @@ namespace Chapter.Strategy
 
         public override void Shoot(Transform firePoint)
         {
-            FireBullet(firePoint, Vector2.zero, BulletType.Barrier);
+            FireBullet(firePoint, Vector2.up, BulletStrategyFactory.Create(BulletType.Barrier));
         }
     }
 
@@ -127,7 +128,7 @@ namespace Chapter.Strategy
 
         public override void Shoot(Transform firePoint)
         {
-            FireBullet(firePoint, Vector2.up, BulletType.Charge);
+            FireBullet(firePoint, Vector2.up, BulletStrategyFactory.Create(BulletType.Charge));
         }
     }
 }

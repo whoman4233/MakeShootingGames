@@ -13,7 +13,6 @@ namespace Chapter.CharacterBase
         public void Enter(PlayerBase _player)
         {
             this.player = _player;
-            Debug.Log("PlayerMoveState");
         }
 
         public void Update()

@@ -1,4 +1,5 @@
 using Chapter.Base;
+using Chapter.Event;
 using Chapter.Factory;
 using Chapter.ObjectPool;
 using Chapter.Singleton;
@@ -18,6 +19,7 @@ namespace Chapter.Manager
 
         private float enemySpawnTimer;
         GameObject playerGameObject;
+
 
         IEnumerator Start()
         {
@@ -47,7 +49,7 @@ namespace Chapter.Manager
             }
 
             // 랜덤 스폰 위치 선택
-            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
+            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count - 1)];
 
             var enemy = EnemyFactory.CreateEnemy("Enemy", spawnPoint);
             if (enemy != null)

@@ -1,77 +1,73 @@
 using UnityEngine;
 using Chapter.ObjectPool;
+using Chapter.Strategy;
 
-public enum BulletType
+
+namespace Chapter.Factory
 {
-    Normal,
-    Laser,
-    Missile,
-    Charge,
-    Drone,
-    Barrier
+    public enum BulletType
+    {
+        Normal, AutoAim, Missile, Laser, Charge, Drone, Barrier
+    }
 }
 
-public class BulletBase : MonoBehaviour, IPoolable
+namespace Chapter.Base
 {
-    public BulletType bulletType;
-    private Vector2 direction;
-    private float speed = 10f;
-
-    public void Initialize(Vector2 dir, BulletType type, float customSpeed = 10f)
+    public class BulletBase : MonoBehaviour, IPoolable
     {
-        direction = dir.normalized;
-        bulletType = type;
-        speed = customSpeed;
-    }
+        public IBulletStrategy strategy;
+        public Vector2 direction;
+        public float speed = 10f;
+        public bool OnDisable;
 
-    void Update()
-    {
-        switch (bulletType)
+
+        public BoxCollider2D col;
+
+        public void SetBehavior(IBulletStrategy newStrategy)
         {
-            case BulletType.Normal:
-            case BulletType.Missile:
-                transform.Translate(direction * speed * Time.deltaTime);
-                break;
-
-            case BulletType.Laser:
-                // Laser 특유의 지속 연출
-                transform.localScale += Vector3.up * Time.deltaTime * 2f;
-                break;
-
-            case BulletType.Charge:
-                // ChargeShot 특유의 점점 커지기
-                transform.localScale += Vector3.one * Time.deltaTime;
-                break;
-
-            case BulletType.Drone:
-                // Drone은 특수하게 움직이거나 추가 구현
-                break;
-
-            case BulletType.Barrier:
-                // Barrier는 이동 없이 주변에 유지
-                break;
+            strategy = newStrategy;
         }
 
-        // 화면 밖으로 나가면 풀로 반환
-        if (!IsVisibleFrom(Camera.main))
+        public void Initialize(Vector2 dir, Vector2 size, float customSpeed)
         {
-            PoolSystemManager.Instance.ReleaseBullet(this);
+            direction = dir.normalized;
+            speed = customSpeed;
+            col = GetComponent<BoxCollider2D>();
+            col.size = size;
+
         }
-    }
 
-    private bool IsVisibleFrom(Camera cam)
-    {
-        Vector3 viewportPos = cam.WorldToViewportPoint(transform.position);
-        return viewportPos.x >= 0 && viewportPos.x <= 1 &&
-               viewportPos.y >= 0 && viewportPos.y <= 1 &&
-               viewportPos.z >= 0; // 화면 앞쪽에 있는지 확인
-    }
+        void Update()
+        {
+            strategy?.OnUpdate();
 
-    public void OnGet()
-    {
-    }
+            // 화면 밖으로 나가면 풀로 반환
+            if (!IsVisibleFrom(Camera.main) && OnDisable)
+            {
+                PoolSystemManager.Instance.ReleaseBullet(this);
+            }
 
-    public void OnRelease()
-    {
+        }
+
+        private bool IsVisibleFrom(Camera cam)
+        {
+            Vector3 viewportPos = cam.WorldToViewportPoint(transform.position);
+            return viewportPos.x >= 0 && viewportPos.x <= 1 &&
+                   viewportPos.y >= 0 && viewportPos.y <= 1 &&
+                   viewportPos.z >= 0; // 화면 앞쪽에 있는지 확인
+        }
+
+        public void OnGet()
+        {
+        }
+
+        public void OnRelease()
+        {
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            strategy?.Trigger(collision);
+        }
     }
 }

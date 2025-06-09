@@ -49,7 +49,7 @@ namespace Chapter.Strategy
         public void Move(Transform target)
         {
             Vector3 dir = (player.position - target.position).normalized;
-            target.Translate(dir * Time.deltaTime * 5f);
+            target.Translate(dir * Time.deltaTime * 2f);
         }
     }
 

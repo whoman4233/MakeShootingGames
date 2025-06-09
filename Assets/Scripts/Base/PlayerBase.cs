@@ -69,7 +69,6 @@ namespace Chapter.Base
         {
             if(Time.time - lastShootTime > ShootSpeed)
             {
-                Debug.Log("Attack!");
                 attackStrategy?.Shoot(this.gameObject.transform);
                 lastShootTime = Time.time;
             }
@@ -141,14 +140,12 @@ namespace Chapter.Base
         public void OnGet()
         {
             // 풀에서 꺼낼 때 초기화 작업 (ex. 체력 회복, 상태 리셋 등)
-            Debug.Log("PlayerBase OnGet 호출");
 
         }
 
         public void OnRelease()
         {
             // 풀로 반환될 때 초기화 작업 (ex. 이펙트 끄기, 총알 리셋 등)
-            Debug.Log("PlayerBase OnRelease 호출");
 
         }
     } 

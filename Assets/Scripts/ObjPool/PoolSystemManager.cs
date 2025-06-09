@@ -1,4 +1,5 @@
 using Chapter.Base;
+using Chapter.Event;
 using Chapter.Singleton;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +14,6 @@ namespace Chapter.ObjectPool
         public BulletPoolManager bulletPoolManager;
         public EnemyBulletPoolManager enemyBulletPoolManager;
         public BossPoolManager bossPoolManager;
-        // 여기에 EnemyPoolManager, BulletPoolManager 등 추가
 
 
         public PlayerBase SpawnPlayer(Vector3 position)
@@ -82,7 +82,6 @@ namespace Chapter.ObjectPool
         {
             bossPoolManager.ReleaseBoss(boss);
         }
-
 
     }
 }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Chapter.Manager;
 using Chapter.Singleton;
+using Chapter.Data;
 
 namespace Chapter.Factory
 {
@@ -71,23 +72,51 @@ namespace Chapter.Factory
                 return null;
             }
 
-            enemy.SetMoveStrategy(GetRandomMoveStrategy());
-            enemy.SetAttackStrategy(GetRandomAttackStrategy());
+            int rand = Random.Range(0, 39);
+            string[] patterns = GetEnemyStatus(rand + 1);
+
+            int M = int.Parse(patterns[0]);
+            int A = int.Parse(patterns[1]);
+
+            enemy.SetAttackStrategy(GetAttackStrategy(A));
+            enemy.SetMoveStrategy(GetMoveStategy(M));
+
             enemy.SetSprite(enemySprite());
 
             return enemy;
         }
 
-        private static IEnemyMoveStrategy GetRandomMoveStrategy()
+
+        private static IEnemyAttackStrategy GetAttackStrategy(int A)
         {
-            int rand = Random.Range(0, moveStrategyGenerators.Count);
-            return moveStrategyGenerators[rand]();
+            return attackStrategyGenerators[A]();
         }
 
-        private static IEnemyAttackStrategy GetRandomAttackStrategy()
+        private static IEnemyMoveStrategy GetMoveStategy(int M)
         {
-            int rand = Random.Range(0, attackStrategyGenerators.Count);
-            return attackStrategyGenerators[rand]();
+            return moveStrategyGenerators[M]();
+        }
+
+        private static string[] GetEnemyStatus(int rand)
+        {
+            string moveStrategy;
+            string attackStrategy;
+
+            if(rand < 10)
+            {
+                attackStrategy = DataManager.Instance.GetEnemyStatus("E0" + rand.ToString()).AttackPattern;
+                moveStrategy = DataManager.Instance.GetEnemyStatus("E0" + rand.ToString()).MovePattern1;
+            }
+            else
+            {
+                attackStrategy = DataManager.Instance.GetEnemyStatus("E" + rand.ToString()).AttackPattern;
+                moveStrategy = DataManager.Instance.GetEnemyStatus("E" + rand.ToString()).MovePattern1;
+            }
+
+            attackStrategy = attackStrategy.Substring(1);
+            moveStrategy = moveStrategy.Substring(1);
+
+            return new string[] { moveStrategy, attackStrategy };
         }
 
         private static Sprite enemySprite()

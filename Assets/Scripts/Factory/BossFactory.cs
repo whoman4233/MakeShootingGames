@@ -69,7 +69,7 @@ namespace Chapter.Factory
 
             if (boss == null)
             {
-                Debug.LogWarning("Enemy 积己 角菩");
+                Debug.LogWarning("Boss 积己 角菩");
                 return null;
             }
 
@@ -82,13 +82,13 @@ namespace Chapter.Factory
 
         private static IBossMoveStrategy GetRandomMoveStrategy()
         {
-            int rand = Random.Range(0, moveStrategyGenerators.Count);
+            int rand = Random.Range(0, moveStrategyGenerators.Count - 1);
             return moveStrategyGenerators[rand]();
         }
 
         private static IBossAttackStrategy GetRandomAttackStrategy()
         {
-            int rand = Random.Range(0, attackStrategyGenerators.Count);
+            int rand = Random.Range(0, attackStrategyGenerators.Count - 1);
             return attackStrategyGenerators[rand]();
         }
 
