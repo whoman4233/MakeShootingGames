@@ -6,6 +6,7 @@ using Chapter.State;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,9 +27,6 @@ namespace Chapter.Singleton
         private IGameState
             _gameLobbyState, _gamePlayState;
 
-        EnemyEventBus enemyEventBus;
-        public GameEventBus gameEventBus;
-        public PlayerEventBus playerEventBus;
         UIManager uiManager;
 
         int EnemyDeadCounter;
@@ -40,24 +38,20 @@ namespace Chapter.Singleton
         {
             _gameLobbyState = new GameLobbyState();
             _gamePlayState = new GamePlayState();
-            
-            _sessionStartTime = DateTime.Now;
+
+            EventBusManager.Instance.enemyEventBus.Subscribe(EnemyEventType.Dead, OnEnemyDead); //SpawnManager 또는 EnemyManager에 분산
+            EventBusManager.Instance.gameEventBus.Subscribe(GameEventType.End, Clear); //의미없이 쓰이긴했음 수정필요
+            EventBusManager.Instance.playerEventBus.Subscribe(PlayerEventType.OnHit, OnPlayerHit); //이거도 플레이어측에서 할수있도록 변경
+            EventBusManager.Instance.gameEventBus.Publish(GameEventType.Start);
+
+           _sessionStartTime = DateTime.Now;
             Debug.Log(
                 "Game session start @: " + DateTime.Now);
 
             NowStage = 100;
             ChangeState(new GameLobbyState());
-            enemyEventBus = new EnemyEventBus();
-            enemyEventBus.Subscribe(EnemyEventType.Dead, OnEnemyDead);
-            gameEventBus = new GameEventBus();
-            gameEventBus.Subscribe(GameEventType.End, Clear);
-            playerEventBus = new PlayerEventBus();
-            playerEventBus.Subscribe(PlayerEventType.OnHit, OnPlayerHit);
             uiManager = FindObjectOfType<UIManager>();
-            Debug.Log(uiManager);
-            Debug.Log(NowStage);
             uiManager.LobbyInit();
-            gameEventBus.Publish(GameEventType.Start);
             Debug.Log(NowStage + "현재 스테이지");
 
         }
@@ -142,7 +136,7 @@ namespace Chapter.Singleton
                 ChangeState(_gameLobbyState);
                 uiManager = FindObjectOfType<UIManager>();
                 uiManager.LobbyInit();
-                gameEventBus.Publish(GameEventType.Start);
+                EventBusManager.Instance.gameEventBus.Publish(GameEventType.Start);
                 SceneManager.sceneLoaded -= OnSceneLoaded;
             }
         }
@@ -168,7 +162,7 @@ namespace Chapter.Singleton
                 if(PlayerHP <= 0)
                 {
                     uiManager.UpdateHp(PlayerHP);
-                    playerEventBus.Publish(PlayerEventType.OnDead);
+                    EventBusManager.Instance.playerEventBus.Publish(PlayerEventType.OnDead);
                 }
             }
         }
