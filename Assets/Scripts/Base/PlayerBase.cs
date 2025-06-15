@@ -8,6 +8,7 @@ using Chapter.Event;
 using Chapter.ObjectPool;
 using Chapter.Strategy;
 using Chapter.Singleton;
+using Chapter.Manager;
 
 namespace Chapter.Base
 {
@@ -79,60 +80,21 @@ namespace Chapter.Base
             //추후 사운드 삽입시 사운드매니저로 이동
         }
 
-        public void SetSelectPlayerPlainStatus(string _playerPlainID)
+        public void ApplyLoadout(PlayerLoadout lo)
         {
-            switch(_playerPlainID)
-            {
-                case "P01":
-                    attackStrategy = new AssaultRifle();
-                    sp.sprite = GameManager.Instance._spriteData.playerSprite[0];
-                    HP = 3;
-                    break;
-                case "P02":
-                    attackStrategy = new AutoAim();
-                    sp.sprite = GameManager.Instance._spriteData.playerSprite[1];
-                    HP = 3;
-                    break;
-                case "P03":
-                    attackStrategy = new MissileLauncher();
-                    sp.sprite = GameManager.Instance._spriteData.playerSprite[2];
-                    HP = 3;
-                    break;
-                case "P04":
-                    attackStrategy = new LaserBeam();
-                    sp.sprite = GameManager.Instance._spriteData.playerSprite[3];
-                    HP = 3;
-                    break;
-                case "P05":
-                    attackStrategy = new DroneCarrier();
-                    sp.sprite = GameManager.Instance._spriteData.playerSprite[4];
-                    HP = 3;
-                    break;
-                case "P06":
-                    attackStrategy = new EnergyBarrier();
-                    sp.sprite = GameManager.Instance._spriteData.playerSprite[5];
-                    HP = 3;
-                    break;
-                case "P07":
-                    attackStrategy = new ChargeShot();
-                    sp.sprite = GameManager.Instance._spriteData.playerSprite[6];
-                    HP = 3;
-                    break;
-            }
-
-
-
-            moveSpeed = DataManager.Instance.playerShipsDataMap[_playerPlainID].moveSpeed;
-            ShootSpeed = DataManager.Instance.playerShipsDataMap[_playerPlainID].shootSpeed;
+            HP = lo.maxHp;
+            moveSpeed = lo.moveSpeed;
+            ShootSpeed = lo.shootDelay;
+            attackStrategy = lo.weapon;
+            sp.sprite = lo.sprite;
         }
+
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.tag == "EnemyBullet")
             {
-                HP -= 1;
-                PlayerEventBus playerEventBus = new PlayerEventBus();
-                playerEventBus.Publish(PlayerEventType.OnHit);
+                EventBusManager.Instance.playerEventBus.Publish(PlayerEventType.OnHit);
                 PoolSystemManager.Instance.ReleaseEnemyBullet(collision.gameObject.GetComponent<EnemyBulletBase>());
             }
         }
