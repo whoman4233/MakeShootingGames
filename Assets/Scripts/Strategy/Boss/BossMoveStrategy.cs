@@ -1,3 +1,4 @@
+using Chapter.Manager;
 using Chapter.Singleton;
 using System.Collections;
 using System.Collections.Generic;
@@ -63,7 +64,7 @@ namespace Chapter.Strategy
 
         public void ExecuteMovement(Transform boss)
         {
-            var player = GameManager.Instance._playerGameObject.transform;
+            var player = PlayerManager.Instance.Player.transform;
             if (player == null) return;
 
             Vector3 target = new Vector3(player.position.x, boss.position.y, 0);

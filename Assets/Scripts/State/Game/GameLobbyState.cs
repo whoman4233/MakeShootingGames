@@ -1,4 +1,5 @@
 using Chapter.Base;
+using Chapter.Manager;
 using Chapter.ObjectPool;
 using Chapter.Singleton;
 using System.Collections;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace Chapter.State
 {
-    public class GameLobbyState : MonoBehaviour , IGameState
+    public class GameLobbyState : IGameState
     {
         GameObject parent;
         PlayerBase[] players;
@@ -19,6 +20,10 @@ namespace Chapter.State
 
         public void Enter(GameManager gameManager)
         {
+            EventBusManager.Instance.gameEventBus.Publish(Event.GameEventType.Start);
+            EventBusManager.Instance.gameEventBus.Subscribe(Event.GameEventType.UIBackButton, BackButton);
+            EventBusManager.Instance.gameEventBus.Subscribe(Event.GameEventType.UINextButton, NextButton);
+
             players = new PlayerBase[7];
             parent = new GameObject("parentObject");
             parent.transform.position = Vector3.zero;
@@ -27,7 +32,7 @@ namespace Chapter.State
             {
                 players[i] = PoolSystemManager.Instance.SpawnPlayer(new Vector3(i * 2, 0, 0));
                 players[i].transform.parent = parent.gameObject.transform;
-                players[i].SetSelectPlayerPlainStatus("P0" + (i + 1).ToString());
+                players[i].SetPlayer(i);
             }
 
             index = 0;
@@ -41,7 +46,19 @@ namespace Chapter.State
 
         public void Exit()
         {
-            GameManager.Instance.SetPlayerIndex(index);
+            PlayerManager.Instance.SetPlayerIndex(index);
+            EventBusManager.Instance.gameEventBus.Unsubscribe(Event.GameEventType.UIBackButton, BackButton);
+            EventBusManager.Instance.gameEventBus.Unsubscribe(Event.GameEventType.UINextButton, NextButton);
+        }
+
+        public void NextButton()
+        {
+            ShowSelectPlayer(1);
+        }
+
+        public void BackButton()
+        {
+            ShowSelectPlayer(-1);
         }
 
         public void ShowSelectPlayer(int PlayerIndex)

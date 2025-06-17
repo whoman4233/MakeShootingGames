@@ -75,8 +75,8 @@ namespace Chapter.Factory
             int rand = Random.Range(0, 39);
             string[] patterns = GetEnemyStatus(rand + 1);
 
-            int M = int.Parse(patterns[0]);
-            int A = int.Parse(patterns[1]);
+            int M = int.Parse(patterns[0]) - 1;
+            int A = int.Parse(patterns[1]) - 1;
 
             enemy.SetAttackStrategy(GetAttackStrategy(A));
             enemy.SetMoveStrategy(GetMoveStategy(M));
@@ -89,12 +89,28 @@ namespace Chapter.Factory
 
         private static IEnemyAttackStrategy GetAttackStrategy(int A)
         {
-            return attackStrategyGenerators[A]();
+            if (A >= 0 && A < attackStrategyGenerators.Count)
+            {
+                return attackStrategyGenerators[A]();
+            }
+            else
+            {
+                Debug.LogError($"[EnemyFactory] 전략 인덱스 {A}가 유효하지 않습니다.");
+                return attackStrategyGenerators[0]();
+            }
         }
 
         private static IEnemyMoveStrategy GetMoveStategy(int M)
         {
-            return moveStrategyGenerators[M]();
+            if(M>=0 && M < moveStrategyGenerators.Count)
+            {
+                return moveStrategyGenerators[M]();
+            }
+            else
+            {
+                Debug.LogError($"[EnemyFactory] 전략 인덱스 {M}가 유효하지 않습니다.");
+                return moveStrategyGenerators[0]();
+            }
         }
 
         private static string[] GetEnemyStatus(int rand)

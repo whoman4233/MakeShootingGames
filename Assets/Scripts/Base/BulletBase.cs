@@ -20,7 +20,9 @@ namespace Chapter.Base
         public float speed = 10f;
         public bool OnDisable;
 
+        private bool isReleased = false;
 
+ 
         public BoxCollider2D col;
 
         public void SetBehavior(IBulletStrategy newStrategy)
@@ -34,7 +36,7 @@ namespace Chapter.Base
             speed = customSpeed;
             col = GetComponent<BoxCollider2D>();
             col.size = size;
-
+            isReleased = false;
         }
 
         void Update()
@@ -57,12 +59,21 @@ namespace Chapter.Base
                    viewportPos.z >= 0; // 화면 앞쪽에 있는지 확인
         }
 
+        public void Release()
+        {
+            if (isReleased) return;
+
+            isReleased = true;
+            PoolSystemManager.Instance.ReleaseBullet(this);
+        }
+
         public void OnGet()
         {
         }
 
         public void OnRelease()
         {
+            isReleased = false;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

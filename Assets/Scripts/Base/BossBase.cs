@@ -1,4 +1,5 @@
 using Chapter.Event;
+using Chapter.Manager;
 using Chapter.ObjectPool;
 using Chapter.Strategy;
 using System.Collections;
@@ -58,17 +59,19 @@ namespace Chapter.Base
 
         public void OnRelease()
         {
-            gameEventBus = new GameEventBus();
-            gameEventBus.Publish(GameEventType.End);
+            EventBusManager.Instance.gameEventBus.Publish(GameEventType.End);
         }
 
         private void OnTriggerStay2D(Collider2D collision)
         {
-            PoolSystemManager.Instance.ReleaseBullet(collision.gameObject.GetComponent<BulletBase>());
-            HP -= 1;
-            if (HP <= 0)
+            if(collision.TryGetComponent(out BulletBase bullet))
             {
-                PoolSystemManager.Instance.ReleaseBoss(this);
+                collision.gameObject.GetComponent<BulletBase>().Release();
+                HP -= 1;
+                if (HP <= 0)
+                {
+                    PoolSystemManager.Instance.ReleaseBoss(this);
+                }
             }
         }
     }

@@ -25,7 +25,8 @@ namespace Chapter.Manager
         {
             yield return null;
 
-            playerGameObject = GameManager.Instance._playerGameObject;
+            playerGameObject = PlayerManager.Instance.Player;
+            EventBusManager.Instance.enemyEventBus.Subscribe(EnemyEventType.SpawnBoss, SpawnBoss);
             EnemyFactory.Init(playerGameObject);
         }
 
@@ -72,7 +73,7 @@ namespace Chapter.Manager
 
             // 랜덤 스폰 위치 선택
             Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
-
+            BossFactory.Init(PlayerManager.Instance.Player);
             var boss = BossFactory.CreateBoss("Boss", spawnPoint);
             if (boss != null)
             {

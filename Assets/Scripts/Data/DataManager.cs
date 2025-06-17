@@ -16,7 +16,7 @@ namespace Chapter.Data
         public Dictionary<string, BossShipsMovePatten> BossShipsMovePattenDataMap;
         public Dictionary<string, EnemyStatus> EnemyStatusDataMap;
 
-        private void Awake()
+        protected override void Awake()
         { 
             base.Awake();
             LoadAllData();

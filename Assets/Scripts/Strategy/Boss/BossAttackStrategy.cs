@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-using UnityEngine;
 using Chapter.ObjectPool;
 using Chapter.Singleton;
+using Chapter.Manager;
 
 namespace Chapter.Strategy
 {
@@ -30,7 +29,7 @@ namespace Chapter.Strategy
             for (int i = 0; i < 3; i++)
             {
                 var bullet = PoolSystemManager.Instance.SpawnEnemyBullet(shooter.position);
-                Vector2 dir = (GameManager.Instance._playerGameObject.transform.position - shooter.position).normalized;
+                Vector2 dir = (PlayerManager.Instance.Player.transform.position - shooter.position).normalized;
                 bullet.Initialize(dir, 5f);
             }
         }

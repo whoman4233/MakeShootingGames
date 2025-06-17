@@ -37,7 +37,10 @@ namespace Chapter.ObjectPool
 
         public void ReleaseEnemy(EnemyBase enemy)
         {
-            enemyPoolManager.ReleaseEnemy(enemy);
+            if(enemy.gameObject.activeSelf)
+            { 
+                enemyPoolManager.ReleaseEnemy(enemy);
+            }
         }
 
         public T SpawnBullet<T>(Vector3 position) where T : BulletBase
@@ -56,7 +59,10 @@ namespace Chapter.ObjectPool
 
         public void ReleaseBullet(BulletBase bullet)
         {
-            bulletPoolManager.ReleaseBullet(bullet);
+            if (bullet.gameObject.activeSelf)
+            {
+                bulletPoolManager.ReleaseBullet(bullet);
+            }
         }
 
         public EnemyBulletBase SpawnEnemyBullet(Vector3 position)
@@ -68,7 +74,10 @@ namespace Chapter.ObjectPool
 
         public void ReleaseEnemyBullet(EnemyBulletBase bullet)
         {
-            enemyBulletPoolManager.ReleaseEnemyBullet(bullet);
+            if (bullet.gameObject.activeSelf)
+            {
+                enemyBulletPoolManager.ReleaseEnemyBullet(bullet);
+            }
         }
 
         public BossBase SpawnBoss(Vector3 position)

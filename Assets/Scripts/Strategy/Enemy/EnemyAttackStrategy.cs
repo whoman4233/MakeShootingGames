@@ -1,6 +1,7 @@
 using UnityEngine;
 using Chapter.ObjectPool;
 using Chapter.Singleton;
+using Chapter.Manager;
 
 namespace Chapter.Strategy
 {
@@ -69,9 +70,9 @@ namespace Chapter.Strategy
     {
         public void Attack(Transform shooter)
         {
-            if (GameManager.Instance._playerGameObject.transform == null) return;
+            if (PlayerManager.Instance.Player.transform == null) return;
 
-            Vector2 dir = (GameManager.Instance._playerGameObject.transform.position - shooter.position).normalized;
+            Vector2 dir = (PlayerManager.Instance.Player.transform.position - shooter.position).normalized;
             var bullet = PoolSystemManager.Instance.SpawnEnemyBullet(shooter.position);
             bullet.Initialize(dir, 6f);
         }

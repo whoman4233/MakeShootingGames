@@ -28,7 +28,7 @@ namespace Chapter.Strategy
             if(collider.CompareTag("Enemy"))
             {
                 collider.gameObject.GetComponent<EnemyBase>().OnDamage(1);
-                PoolSystemManager.Instance.ReleaseBullet(bullet);
+                bullet.Release();
             }
         }
 
@@ -59,7 +59,7 @@ namespace Chapter.Strategy
             if (collider.CompareTag("Enemy"))
             {
                 collider.GetComponent<EnemyBase>()?.OnDamage(1);
-                PoolSystemManager.Instance.ReleaseBullet(bullet);
+                bullet.Release();
             }
         }
     }
@@ -93,7 +93,7 @@ namespace Chapter.Strategy
             if (collider.CompareTag("Enemy"))
             {
                 collider.GetComponent<EnemyBase>()?.OnDamage(3);
-                PoolSystemManager.Instance.ReleaseBullet(bullet);
+                bullet.Release();
             }
         }
     }
@@ -120,7 +120,7 @@ namespace Chapter.Strategy
             timer -= Time.deltaTime;
             if (timer <= 0f)
             {
-                PoolSystemManager.Instance.ReleaseBullet(bullet);
+                bullet.Release();
             }
         }
 
@@ -162,8 +162,7 @@ namespace Chapter.Strategy
             if (collider.CompareTag("Enemy"))
             {
                 collider.GetComponent<EnemyBase>()?.OnDamage(1);
-                PoolSystemManager.Instance.ReleaseBullet(bullet);
-
+                bullet.Release();
             }
         }
     }
@@ -226,7 +225,7 @@ namespace Chapter.Strategy
 
             if (timer >= chargeTime + 1f)
             {
-                PoolSystemManager.Instance.ReleaseBullet(bullet);
+                bullet.Release();
             }
         }
 
@@ -235,7 +234,7 @@ namespace Chapter.Strategy
             if (collider.CompareTag("Enemy"))
             {
                 collider.GetComponent<EnemyBase>()?.OnDamage(5);
-                PoolSystemManager.Instance.ReleaseBullet(bullet);
+                bullet.Release();
             }
         }
     }
