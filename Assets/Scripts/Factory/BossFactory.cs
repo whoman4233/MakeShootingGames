@@ -94,9 +94,9 @@ namespace Chapter.Factory
 
         private static Sprite bossSprite()
         {
-            int randMax = GameManager.Instance._spriteData.enemySprite.Length;
+            int randMax = GameManager.Instance._spriteData.bossSprite.Length;
             int rand = Random.Range(0, randMax);
-            return GameManager.Instance._spriteData.enemySprite[rand];
+            return GameManager.Instance._spriteData.bossSprite[rand];
         }
 
     }

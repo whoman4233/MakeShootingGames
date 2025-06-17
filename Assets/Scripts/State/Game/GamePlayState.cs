@@ -1,4 +1,5 @@
 using Chapter.Base;
+using Chapter.Event;
 using Chapter.Manager;
 using Chapter.ObjectPool;
 using Chapter.Singleton;
@@ -12,28 +13,42 @@ namespace Chapter.State
     public class GamePlayState : IGameState
     {
         PlayerBase player;
+        int EnemyDeadCounter;
 
         public void Enter(GameManager gameManager)
         {
             Debug.Log("GameStart!");
 
-            GameManager.Instance.Initialize();
-
             player = PoolSystemManager.Instance.SpawnPlayer(Vector3.zero);
+            PlayerManager.Instance.InitializePlayer(player);
+
+            EnemyDeadCounter = 0;
+
+            EventBusManager.Instance.enemyEventBus.Subscribe(EnemyEventType.Dead, OnEnemyDead);
 
             if (player != null)
             {
                 Debug.Log($"[Success] Player 오브젝트를 Pool에서 받아옴: {player.name}");
-                player.gameObject.SetActive(true);
+                PlayerManager.Instance.Player.SetActive(true);
             }
             else
             {
                 Debug.LogError("[Error] Pool에서 Player를 가져오는데 실패했습니다.");
             }
 
-            //EnemyDeadCounter Init
-            PlayerManager.Instance.InitializePlayer();
+            EnemyDeadCounter = 0;
+        }
 
+
+        public void OnEnemyDead()
+        {
+            EnemyDeadCounter++;
+            Debug.Log(EnemyDeadCounter + "명의 적 사망");
+            if (EnemyDeadCounter >= 1)
+            {
+                EnemyDeadCounter = 0;
+                EventBusManager.Instance.enemyEventBus.Publish(EnemyEventType.SpawnBoss);
+            }
         }
 
         void Update()
@@ -43,7 +58,7 @@ namespace Chapter.State
 
         public void Exit()
         {
-
+            EventBusManager.Instance.enemyEventBus.Unsubscribe(EnemyEventType.Dead, OnEnemyDead);
         }
     }
 

@@ -3,6 +3,7 @@ using Chapter.Singleton;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Chapter.Manager
@@ -15,15 +16,24 @@ namespace Chapter.Manager
         [SerializeField] private Transform HeartParent;
         [SerializeField] private Text StageText;
         private List<GameObject> hearts = new List<GameObject>();
-        PlayerEventBus playerEventBus;
-        GameEventBus gameEventBus;
+
+        private void Awake()
+        {
+            string currentSceneName = SceneManager.GetActiveScene().name;
+            if(currentSceneName == "LobbyScene 1")
+            {
+                LobbyInit();
+            }
+            else if(currentSceneName == "InGameScene")
+            {
+                Initalize();
+            }
+        }
 
         public void Initalize()
         {
-            playerEventBus = GameManager.Instance.playerEventBus;
-            playerEventBus.Subscribe(PlayerEventType.OnDead, GameOver);
-            gameEventBus = GameManager.Instance.gameEventBus;
-            gameEventBus.Subscribe(GameEventType.End, StageClear);
+            EventBusManager.Instance.playerEventBus.Subscribe(PlayerEventType.OnDead, GameOver);
+            EventBusManager.Instance.gameEventBus.Subscribe(GameEventType.End, StageClear);
             if(GameOverPanel != null)
             {
                 GameOverPanel.SetActive(false);
@@ -36,15 +46,15 @@ namespace Chapter.Manager
 
         public void LobbyInit()
         {
-            gameEventBus = GameManager.Instance.gameEventBus;
-            gameEventBus.Subscribe(GameEventType.Start, ShowStageText);
-            Debug.Log("LobbyInit");
+            EventBusManager.Instance.gameEventBus.Subscribe(GameEventType.Start, ShowStageText);
         }
+
+
 
         public void SetMaxHp(int maxHp)
         {
             // 기존 하트 제거
-            foreach (Transform t in HeartParent)
+            foreach (Transform t in HeartParent)    
                 Destroy(t.gameObject);
             hearts.Clear();
 
@@ -66,8 +76,8 @@ namespace Chapter.Manager
 
         public void ShowStageText()
         {
-            StageText.text = "Stage : " + GameManager.Instance.NowStage.ToString();
-            Debug.Log("ShowStageText");
+            Debug.Log("UIManager.ShowStageText()");
+            StageText.text = "Stage : " + StageManager.Instance.NowStage.ToString();
         }
 
         public void GameOver()
@@ -77,7 +87,7 @@ namespace Chapter.Manager
 
         public void StageClearButtonClick()
         {
-            GameManager.Instance.StageClearButtonClick();
+            EventBusManager.Instance.gameEventBus.Publish(GameEventType.UIClearButton);
         }
 
         public void StageClear()
@@ -88,22 +98,22 @@ namespace Chapter.Manager
         public void ReGame()
         {
             GameOverPanel.SetActive(false);
-            GameManager.Instance.ReGameButtonClick();
+            EventBusManager.Instance.gameEventBus.Publish(GameEventType.UIRegameButton);
         }
 
         public void OnLeftButtonClick()
         {
-            GameManager.Instance.OnBackButtonClick();
+            EventBusManager.Instance.gameEventBus.Publish(GameEventType.UIBackButton);
         }
 
         public void OnRightButtonClick()
         {
-            GameManager.Instance.OnNextButtonClick();
+            EventBusManager.Instance.gameEventBus.Publish(GameEventType.UINextButton);
         }
 
         public void GameStartButtonClick()
         {
-            GameManager.Instance.OnGameStartButtonClick();
+            EventBusManager.Instance.gameEventBus.Publish(GameEventType.UIStartButton);
         }
 
     }

@@ -19,13 +19,18 @@ namespace Chapter.Manager
         public float ShootSpeed { get; private set; }
         public float MoveSpeed { get; private set; }
 
+        public GameObject Player;
+
         private const int DefaultMaxHp = 3;
 
         private UIManager uiManager;
 
+
+
         protected override void Awake()
         {
             base.Awake();
+            
         }
 
         private void Start()
@@ -38,9 +43,10 @@ namespace Chapter.Manager
         {
             PlayerIndex = index;
         }
-        public void InitializePlayer()
+        public void InitializePlayer(PlayerBase player)
         {
             LoadStatsFromData();
+            SetupPlayer(player);
             uiManager = FindObjectOfType<UIManager>();
             uiManager.SetMaxHp(PlayerHP);
             uiManager.UpdateHp(PlayerHP);
@@ -68,6 +74,8 @@ namespace Chapter.Manager
 
         public void SetupPlayer(PlayerBase player)
         {
+            Player = player.gameObject;
+
             var data = DataManager.Instance.GetPlayer(PlayerID);
             PlayerAttackStrategy attackStrategy = new AssaultRifle();
             Sprite sprite = null;

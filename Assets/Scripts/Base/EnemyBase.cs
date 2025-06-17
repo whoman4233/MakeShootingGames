@@ -1,4 +1,5 @@
 using Chapter.Event;
+using Chapter.Manager;
 using Chapter.ObjectPool;
 using Chapter.Strategy;
 using System.Collections;
@@ -19,8 +20,6 @@ namespace Chapter.Base
 
         private void Awake()
         {
-            HP = 3f;
-            attackSpeed = 1;
         }
 
         public void SetMoveStrategy(IEnemyMoveStrategy Strategy)
@@ -46,14 +45,13 @@ namespace Chapter.Base
             {
                 attackStrategy?.Attack(transform);
                 attackSpeed += Time.time;
-                EnemyEventBus enemyEvent = new EnemyEventBus();
-                enemyEvent.Publish(EnemyEventType.Dead);
             }
         }
 
         public void OnGet()
         {
-            // 풀에서 꺼낼 때 초기화 작업 (ex. 체력 회복, 상태 리셋 등)
+            HP = 3f;
+            attackSpeed = 1;
 
         }
 
@@ -70,6 +68,7 @@ namespace Chapter.Base
             if (HP <= 0)
             {
                 PoolSystemManager.Instance.ReleaseEnemy(this);
+                EventBusManager.Instance.enemyEventBus.Publish(EnemyEventType.Dead);
             }
         }
     }

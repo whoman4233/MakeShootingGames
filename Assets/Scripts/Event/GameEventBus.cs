@@ -7,7 +7,7 @@ namespace Chapter.Event
 {
     public enum GameEventType
     {
-        Lobby, Start, Pause, End  
+        Lobby, Start, End, UIBackButton, UINextButton, UIStartButton, UIClearButton  , UIRegameButton
     }
 
     public class GameEventBus : IEventBus<GameEventType>

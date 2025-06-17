@@ -7,7 +7,7 @@ namespace Chapter.Event
 {
     public enum EnemyEventType
     {
-        Dead
+        Dead, SpawnBoss
     }
 
     public class EnemyEventBus : IEventBus<EnemyEventType>

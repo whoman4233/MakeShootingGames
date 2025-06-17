@@ -27,7 +27,6 @@ namespace Chapter.Data
         public partial class SheetParsing : EditorWindow
         {
             string sheetAPIurl = "https://script.google.com/macros/s/AKfycbzofCyJ8eZxHUulGf0s1TSCCGjgJA3IYu0MTELheaFTRJm7cfbvYI1APAANui0qGwWXrQ/exec";
-            string sheeturl = "https://docs.google.com/spreadsheets/d/17Gff8xN4jhsmfIsua5yDj9HfptYavuPgQovEG4aS16U/edit?gid=0#gid=0";
 
             private List<SheetData> sheets = new List<SheetData>();
             private int selectedSheetIndex = 0;

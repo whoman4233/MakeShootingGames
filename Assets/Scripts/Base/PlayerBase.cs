@@ -40,8 +40,6 @@ namespace Chapter.Base
             sp = GetComponent<SpriteRenderer>();
             _eventBus = new PlayerEventBus();
 
-            GameManager.Instance._playerGameObject = this.gameObject;
-
             ChangeState(new PlayerIdleState());
         }
 
@@ -80,8 +78,15 @@ namespace Chapter.Base
             //추후 사운드 삽입시 사운드매니저로 이동
         }
 
-        public void ApplyLoadout(PlayerLoadout lo)
+        public void SetPlayer(int index)
         {
+            PlayerManager.Instance.SetPlayerIndex(index);
+            PlayerManager.Instance.SetupPlayer(this);
+        }
+
+        public void ApplyLoadout(PlayerLoadout lo)
+        {   
+            sp = GetComponent<SpriteRenderer>();
             HP = lo.maxHp;
             moveSpeed = lo.moveSpeed;
             ShootSpeed = lo.shootDelay;
